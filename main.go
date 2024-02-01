@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net"
 	"os"
 	"os/signal"
@@ -32,6 +33,8 @@ type configModel struct {
 	ListenAddr    string   `yaml:"listen_addr,omitempty"`
 	EnableSocks   bool     `yaml:"enable_socks5,omitempty"`
 	SocksAddr     string   `yaml:"socks_addr,omitempty"`
+	SocksUser     string   `yaml:"socks_user,omitempty"`
+	SocksPass     string   `yaml:"socks_pass,omitempty"`
 	AllowAllHosts bool     `yaml:"allow_all_hosts,omitempty"`
 }
 
@@ -66,7 +69,7 @@ https://github.com/XIU2/SNIProxy
 }
 
 func main() {
-	data, err := os.ReadFile(ConfigFilePath) // 读取配置文件
+	data, err := ioutil.ReadFile(ConfigFilePath) // 读取配置文件
 	if err != nil {
 		serviceLogger(fmt.Sprintf("配置文件读取失败: %v", err), 31, false)
 		os.Exit(1)

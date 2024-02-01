@@ -1,0 +1,11 @@
+version: '3'
+services:
+  sniproxy:
+    build: .
+    image: sniproxy:latest
+    container_name: sniproxy
+    ports:
+      - "443:443"
+    volumes:
+      - ./config.yaml:/config.yaml
+    restart: always
